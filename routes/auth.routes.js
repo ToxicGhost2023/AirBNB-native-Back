@@ -1,4 +1,5 @@
 import {
+  getDataUser,
   loginHandler,
   signUpHandler,
   uploadProfilePictureHandler,
@@ -71,6 +72,21 @@ export const loginRoute = {
   handler: loginHandler,
 };
 
+export const userInformation = {
+  schema: {
+    tags: ["user"],
+    summary: "جزییات کاربر",
+    security: [{ apiKey: [] }],
+    response: {
+      201: {
+        type: "object",
+      },
+    },
+  },
+
+  handler: getDataUser,
+};
+
 export const uploadProfilePictureRoute = {
   method: "POST",
   url: "/api/upload-profile-picture",
@@ -95,5 +111,6 @@ export default function authRouters(fastify, option, done) {
   fastify.post("/signup", signUpRoute);
   fastify.post("/login", loginRoute);
   fastify.post("/upload-profile-picture", uploadProfilePictureRoute);
+  fastify.get("/information", userInformation);
   done();
 }

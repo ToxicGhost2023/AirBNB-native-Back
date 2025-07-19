@@ -125,6 +125,7 @@ export const loginHandler = async (req, reply) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       return reply.status(401).send({ error: "رمز عبور اشتباه است." });
     }
@@ -194,6 +195,7 @@ export const getDataUser = async (req, reply) => {
     const user = await UserModel.findById(userId).select(
       "email userName role profilePicture"
     );
+
     if (!user) {
       return reply.status(404).send({ error: "کاربر یافت نشد." });
     }
